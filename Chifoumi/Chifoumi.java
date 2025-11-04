@@ -7,6 +7,8 @@ public class Chifoumi {
                 return ChifoumiAction.ROCK;
             case SCISSOR:
                 return ChifoumiAction.PAPER;
+            default:
+                return null;
         }
     }
 }
