@@ -1,0 +1,25 @@
+# Compiled Java class files
+*.class
+
+# Build directories
+build/
+target/
+out/
+
+# JDK auto-generated files
+.DS_Store
+Thumbs.db
+
+# IDEs and editors
+.idea/
+*.iml
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# Logs and temporary files
+*.log
+*.tmp
+
+# Environment variables
+.env
