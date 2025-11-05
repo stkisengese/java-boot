@@ -1,7 +1,7 @@
 public class Palindrome {
     public static boolean isPalindrome(String s) {
          if (s == null) {
-            return true;
+            return false;
         }
         // Remove leading/trailing spaces
         s = s.strip().toLowerCase();
