@@ -1,5 +1,8 @@
 public class Palindrome {
     public static boolean isPalindrome(String s) {
+         if (s == null) {
+            return true;
+        }
         // Remove leading/trailing spaces
         s = s.strip().toLowerCase();
        // s = s.replaceAll("[^a-zA-Z]", "").toLowerCase();
