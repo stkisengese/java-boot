@@ -7,14 +7,10 @@ public class FileSearch {
     }
     
     private static String searchFileRecursive(File directory, String fileName) {
-        if (!directory.exists() || !directory.isDirectory()) {
-            return null;
-        }
+        if (!directory.exists() || !directory.isDirectory()) return null;
         
         File[] files = directory.listFiles();
-        if (files == null) {
-            return null;
-        }
+        if (files == null) return null;
         
         for (File file : files) {
             if (file.isFile() && file.getName().equals(fileName)) {
@@ -22,9 +18,7 @@ public class FileSearch {
             }
             if (file.isDirectory()) {
                 String result = searchFileRecursive(file, fileName);
-                if (result != null) {
-                    return result;
-                }
+                if (result != null) return result;
             }
         }
         return null;
