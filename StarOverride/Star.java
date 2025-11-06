@@ -1,4 +1,5 @@
-package StarOverride;
+import java.util.Objects;
+
 public class Star extends CelestialObject {
     private double magnitude;
 
@@ -22,5 +23,22 @@ public class Star extends CelestialObject {
     @Override
     public String toString() {
         return String.format("%s shines at the %.3f magnitude", getName(), magnitude);
+    }
+
+    // Override equals method
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        if (!super.equals(obj)) return false;
+        
+        Star star = (Star) obj;
+        return Double.compare(star.magnitude, magnitude) == 0;
+    }
+
+    // Override hashCode method
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), magnitude);
     }
 }
