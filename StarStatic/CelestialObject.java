@@ -1,4 +1,8 @@
 public class CelestialObject {
+
+     // Public constant for AU to KM conversion
+    public static final double KM_IN_ONE_AU = 150000000.0;
+
     private double x;
     private double y;
     private double z;
@@ -31,5 +35,19 @@ public class CelestialObject {
     public void setY(double y) { this.y = y; }
     public void setZ(double z) { this.z = z; } 
     public void setName(String name) { this.name = name; }
+
+     // Static method to compute distance between two celestial objects in AU
+    public static double getDistanceBetween(CelestialObject obj1, CelestialObject obj2) {
+        double dx = obj2.getX() - obj1.getX();
+        double dy = obj2.getY() - obj1.getY();
+        double dz = obj2.getZ() - obj1.getZ();
+        return Math.sqrt(dx * dx + dy * dy + dz * dz);
+    }
+    
+    // Static method to compute distance between two celestial objects in kilometers
+    public static double getDistanceBetweenInKm(CelestialObject obj1, CelestialObject obj2) {
+        double distanceAu = getDistanceBetween(obj1, obj2);
+        return distanceAu * KM_IN_ONE_AU;
+    }
     
 }
