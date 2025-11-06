@@ -9,8 +9,8 @@ public class Star extends CelestialObject {
     }
 
     // parameterized constructor
-    public Star(String name, double x, double y, double z, double magnitude) {
-        super(name, x, y, z); // call to CelestialObject parameterized constructor
+    public Star(String name, double x, double y, double z, int mass, double magnitude) {
+        super(name, x, y, z, mass); // call to CelestialObject parameterized constructor
         this.magnitude = magnitude;
     }
 
