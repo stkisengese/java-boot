@@ -2,13 +2,12 @@ import java.util.Objects;
 
 public class CelestialObject {
 
-     // Public constant for AU to KM conversion
+    // Public constant for AU to KM conversion
     public static final double KM_IN_ONE_AU = 150000000.0;
 
-    private double x;
-    private double y;
-    private double z;
     private String name;
+    private double x, y, z;
+    private int mass;
 
     // defautt constructor
     public CelestialObject() {
@@ -16,11 +15,12 @@ public class CelestialObject {
     }
 
     // parameterized constructor
-    public CelestialObject(String name, double x, double y, double z) {
+    public CelestialObject(String name, double x, double y, double z, Integer mass) {
         this.name = name;
         this.x = x;
         this.y = y;
         this.z = z;
+        this.mass = mass;
     }
 
     // getter methods
@@ -28,14 +28,16 @@ public class CelestialObject {
     public double getY() { return this.y; }
     public double getZ() { return this.z; }  
     public String getName() { return this.name; }
+    public int getMass() { return this.mass; }
 
     // Setter methods
     public void setX(double x) { this.x = x; }
     public void setY(double y) { this.y = y; }
     public void setZ(double z) { this.z = z; } 
     public void setName(String name) { this.name = name; }
+    public void setMass(int mass) { this.mass = mass; }
 
-     // Static method to compute distance between two celestial objects in AU
+    // Static method to compute distance between two celestial objects in AU
     public static double getDistanceBetween(CelestialObject obj1, CelestialObject obj2) {
         double dx = obj2.getX() - obj1.getX();
         double dy = obj2.getY() - obj1.getY();
@@ -49,7 +51,7 @@ public class CelestialObject {
         return distanceAu * KM_IN_ONE_AU;
     }
 
-     // toString method
+    // toString method
     @Override
     public String toString() {
         return String.format("%s is positioned at (%.3f, %.3f, %.3f)", name, x, y, z);
@@ -63,15 +65,16 @@ public class CelestialObject {
 
         CelestialObject other = (CelestialObject) obj;
 
-        return Double.compare(other.x, x) == 0 &&
-               Double.compare(other.y, y) == 0 &&
-               Double.compare(other.z, z) == 0 &&
-               Objects.equals(name, other.name);
+        return Objects.equals(name, other.name)
+               && Double.compare(other.z, z) == 0 
+               && Double.compare(other.x, x) == 0 
+               && Double.compare(other.y, y) == 0 
+               && mass == other.mass;
     }
 
     // hashCode method
     @Override
     public int hashCode() {
-        return Objects.hash(name, x, y, z);
+        return Objects.hash(name, x, y, z, mass);
     }
 }
