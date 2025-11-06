@@ -49,5 +49,11 @@ public class CelestialObject {
         double distanceAu = getDistanceBetween(obj1, obj2);
         return distanceAu * KM_IN_ONE_AU;
     }
+
+     // toString method
+    @Override
+    public String toString() {
+        return String.format("%s is positioned at (%.3f, %.3f, %.3f)", name, x, y, z);
+    }
     
 }
