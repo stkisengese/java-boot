@@ -1,3 +1,5 @@
+import java.util.Objects;
+
 public class CelestialObject {
 
      // Public constant for AU to KM conversion
@@ -55,5 +57,24 @@ public class CelestialObject {
     public String toString() {
         return String.format("%s is positioned at (%.3f, %.3f, %.3f)", name, x, y, z);
     }
-    
+
+    // equals method
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+
+        CelestialObject other = (CelestialObject) obj;
+
+        return Double.compare(other.x, x) == 0 &&
+               Double.compare(other.y, y) == 0 &&
+               Double.compare(other.z, z) == 0 &&
+               Objects.equals(name, other.name);
+    }
+
+    // hashCode method
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, x, y, z);
+    }
 }
