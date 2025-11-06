@@ -15,7 +15,7 @@ public class CelestialObject {
     }
 
     // parameterized constructor
-    public CelestialObject(String name, double x, double y, double z, Integer mass) {
+    public CelestialObject(String name, double x, double y, double z, int mass) {
         this.name = name;
         this.x = x;
         this.y = y;
