@@ -10,8 +10,8 @@ public class Planet extends CelestialObject {
     }
 
     // parameterized constructor
-    public Planet(String name, double x, double y, double z, Star centerStar) {
-        super(name, x, y, z); // call to CelestialObject parameterized constructor
+    public Planet(String name, double x, double y, double z, int mass, Star centerStar) {
+        super(name, x, y, z, mass); // call to CelestialObject parameterized constructor
         this.centerStar = centerStar;
     }
 
