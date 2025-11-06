@@ -1,4 +1,3 @@
-package StarInheritance;
 import java.util.Objects;
 
 public class CelestialObject {
