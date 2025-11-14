@@ -5,13 +5,14 @@ public abstract class Character {
     private final int maxHealth;
     private int currentHealth;
     private final String name;
+    private final Weapon weapon;
     private static List<Character> allCharacters = new ArrayList<>();
 
-    // parameterized constructor
-    public Character(String name, int maxHealth) {
+    public Character(String name, int maxHealth, Weapon weapon) {
         this.name = name;
         this.maxHealth = maxHealth;
         this.currentHealth = maxHealth;
+        this.weapon = weapon;
         allCharacters.add(this);
     }
 
@@ -27,6 +28,10 @@ public abstract class Character {
         return name;
     }
 
+    public Weapon getWeapon() {
+        return weapon;
+    }
+
     protected void setCurrentHealth(int currentHealth) {
         this.currentHealth = Math.max(0, Math.min(currentHealth, maxHealth));
     }
@@ -37,14 +42,14 @@ public abstract class Character {
 
     @Override
     public String toString() {
+        String weaponInfo = weapon != null ? " He has the weapon " + weapon.toString() : "";
         if (currentHealth == 0) {
-            return name + " : KO";
+            return name + " : KO" + weaponInfo;
         } else {
-            return name + " : " + currentHealth + "/" + maxHealth;
+            return name + " : " + currentHealth + "/" + maxHealth + weaponInfo;
         }
     }
 
-    // static method to print the status of all characters
     public static String printStatus() {
         StringBuilder sb = new StringBuilder();
         sb.append("------------------------------------------\n");
@@ -60,7 +65,6 @@ public abstract class Character {
         return sb.toString();
     }
 
-    // static method to simulate a fight between two characters
     public static Character fight(Character c1, Character c2) {
         while (c1.getCurrentHealth() > 0 && c2.getCurrentHealth() > 0) {
             c1.attack(c2);

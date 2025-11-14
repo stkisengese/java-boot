@@ -2,8 +2,8 @@ public class Templar extends Character implements Healer, Tank {
     private final int healCapacity;
     private final int shield;
 
-    public Templar(String name, int maxHealth, int healCapacity, int shield) {
-        super(name, maxHealth);
+    public Templar(String name, int maxHealth, int healCapacity, int shield, Weapon weapon) {
+        super(name, maxHealth, weapon);
         this.healCapacity = healCapacity;
         this.shield = shield;
     }
@@ -17,7 +17,8 @@ public class Templar extends Character implements Healer, Tank {
     @Override
     public void attack(Character target) {
         this.heal(this);
-        target.takeDamage(6);
+        int damage = getWeapon() != null ? getWeapon().getDamage() : 6;
+        target.takeDamage(damage);
     }
 
     @Override
@@ -37,12 +38,13 @@ public class Templar extends Character implements Healer, Tank {
 
     @Override
     public String toString() {
+        String weaponInfo = getWeapon() != null ? " He has the weapon " + getWeapon().toString() : "";
         if (getCurrentHealth() > 0) {
-            return String.format("%s is a strong Templar with %d HP. It can heal %d HP and has a shield of %d.",
-                    getName(), getCurrentHealth(), healCapacity, shield);
+            return String.format("%s is a strong Templar with %d HP. It can heal %d HP and has a shield of %d.%s",
+                    getName(), getCurrentHealth(), healCapacity, shield, weaponInfo);
         } else {
-            return String.format("%s has been beaten, even with its %d shield. So bad, it could heal %d HP.",
-                    getName(), shield, healCapacity);
+            return String.format("%s has been beaten, even with its %d shield. So bad, it could heal %d HP.%s",
+                    getName(), shield, healCapacity, weaponInfo);
         }
     }
 }
