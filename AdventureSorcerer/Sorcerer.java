@@ -8,7 +8,7 @@ public class Sorcerer extends Character implements Healer {
 
     @Override
     public void heal(Character target) {
-        target.currentHealth = Math.min(target.currentHealth + healCapacity, target.getMaxHealth());
+        target.setCurrentHealth(target.getCurrentHealth() + healCapacity);
     }
 
     @Override
@@ -18,7 +18,7 @@ public class Sorcerer extends Character implements Healer {
 
     @Override
     public String toString() {
-        if (currentHealth > 0) {
+        if (getCurrentHealth() > 0) {
             return String.format("%s is a sorcerer with %d HP. It can heal %d HP.", getName(), currentHealth, healCapacity);
         } else {
             return String.format("%s is a dead sorcerer. So bad, it could heal %d HP.", getName(), healCapacity);
