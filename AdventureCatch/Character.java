@@ -36,9 +36,9 @@ public abstract class Character {
         this.currentHealth = Math.max(0, Math.min(currentHealth, maxHealth));
     }
 
-    public abstract void takeDamage(int amount);
+    public abstract void takeDamage(int amount) throws DeadCharacterException;
 
-    public abstract void attack(Character target);
+    public abstract void attack(Character target) throws DeadCharacterException;
 
     @Override
     public String toString() {
@@ -67,9 +67,13 @@ public abstract class Character {
 
     public static Character fight(Character c1, Character c2) {
         while (c1.getCurrentHealth() > 0 && c2.getCurrentHealth() > 0) {
+           try {
             c1.attack(c2);
             if (c2.getCurrentHealth() == 0) break;
             c2.attack(c1);
+           } catch (Exception e) {
+            // Throw exception caught, continue the fight
+           }
         }
         return c1.getCurrentHealth() > 0 ? c1 : c2;
     }

@@ -9,20 +9,29 @@ public class Templar extends Character implements Healer, Tank {
     }
 
     @Override
-    public void takeDamage(int amount) {
+    public void takeDamage(int amount) throws DeadCharacterException {
+        if (getCurrentHealth() <= 0) {
+            throw new DeadCharacterException(this);
+        }
         int reducedDamage = Math.max(0, amount - shield);
         setCurrentHealth(getCurrentHealth() - reducedDamage);
     }
 
     @Override
-    public void attack(Character target) {
+    public void attack(Character target) throws DeadCharacterException {
+        if (getCurrentHealth() <= 0) {
+            throw new DeadCharacterException(this);
+        }
         this.heal(this);
         int damage = getWeapon() != null ? getWeapon().getDamage() : 6;
         target.takeDamage(damage);
     }
 
     @Override
-    public void heal(Character target) {
+    public void heal(Character target) throws DeadCharacterException {
+        if (getCurrentHealth() <= 0) {
+            throw new DeadCharacterException(this);
+        }
         target.setCurrentHealth(target.getCurrentHealth() + healCapacity);
     }
 
