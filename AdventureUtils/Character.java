@@ -44,7 +44,8 @@ public class Character {
         }
     }
 
-       public static String printStatus() {
+    // static method to print the status of all characters
+    public static String printStatus() {
         StringBuilder sb = new StringBuilder();
         sb.append("------------------------------------------\n");
         if (allCharacters.isEmpty()) {
@@ -57,5 +58,15 @@ public class Character {
         }
         sb.append("------------------------------------------\n");
         return sb.toString();
+    }
+
+    // static method to simulate a fight between two characters
+    public static Character fight(Character c1, Character c2) {
+        while (c1.getCurrentHealth() > 0 && c2.getCurrentHealth() > 0) {
+            c1.attack(c2);
+            if (c2.getCurrentHealth() == 0) break;
+            c2.attack(c1);
+        }
+        return c1.getCurrentHealth() > 0 ? c1 : c2;
     }
 }
