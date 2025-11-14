@@ -5,7 +5,7 @@ public class Character {
     private final int maxHealth;
     private int currentHealth;
     private final String name;
-    public static List<Character> allCharacters = new ArrayList<>();
+    private static List<Character> allCharacters = new ArrayList<>();
 
     // parameterized constructor
     public Character(String name, int maxHealth) {
