@@ -3,6 +3,7 @@ public class Character {
     private int currentHealth;
     private final String name;
 
+    // parameterized constructor
     public Character(String name, int maxHealth) {
         this.name = name;
         this.maxHealth = maxHealth;
