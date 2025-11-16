@@ -12,15 +12,15 @@ public class MapInventory {
 
     public static List<String> getProductIdsByPrice(Map<String, Integer> inventory, int price) {
         List<String> result = new ArrayList<>();
-	if (inventory == null) {
-	    return result;
-	}
+		if (inventory == null) {
+			return result;
+		}
 
-	for (Map.Entry<String, Integer> entry : inventory.entrySet()) {
-	    if (entry.getValue() == price) {
-	    	result.add(entry.getKey());
-	    }
-	return result;
-	}
+		for (Map.Entry<String, Integer> entry : inventory.entrySet()) {
+			if (entry.getValue() == price) {
+				result.add(entry.getKey());
+			}
+		}
+		return result;
     }
 }
