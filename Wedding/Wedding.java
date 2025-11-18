@@ -10,8 +10,8 @@ public class Wedding {
     // a name from the first list to a name of the second list.
     // If the lists have different sizes, some names from the bigger list will be ignored.
     public static Map<String, String> createCouple(Set<String> first, Set<String> second) {
-        List<String> firstList = first.stream().toList();
-        List<String> secondList = second.stream().toList();  
+        List<String> firstList = new ArrayList<>(first);
+        List<String> secondList = new ArrayList<>(second);
         
         Collections.shuffle(firstList);
         Collections.shuffle(secondList);
