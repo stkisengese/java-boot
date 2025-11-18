@@ -22,7 +22,7 @@ public class StreamCollect {
     public static String orderAndConcatWithSharp(Stream<String> s) {
         String joined =s.sorted()
                         .collect(
-                            Collectors.joining("#"));
+                            Collectors.joining(" # "));
         return "{" + joined + "}";
     }
 }
