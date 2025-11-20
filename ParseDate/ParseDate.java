@@ -1,4 +1,3 @@
-import java.sql.Date;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -25,6 +24,7 @@ public class ParseDate {
     public static LocalTime parseTimeFormat(String stringDate) {
         if (stringDate == null || stringDate.isEmpty()) {
             return null;
+        }
         // Example: "09 heures du soir, 07 minutes et 23 secondes" -> Custom parsing
         String[] parts = stringDate.split(", ");
         int hours = Integer.parseInt(parts[0].split(" ")[0]);
