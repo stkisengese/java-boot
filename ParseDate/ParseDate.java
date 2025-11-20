@@ -26,20 +26,32 @@ public class ParseDate {
             return null;
         }
 
-        // Replace " and " with ", " for consistent splitting
-        String normalized = stringDate.replace(" and ", ", ");
-        String[] parts = normalized.split(", ");
+        try {
+            // Replace " and " with ", " for consistent splitting
+            String normalized = stringDate.replace(" and ", ", ");
+            String[] parts = normalized.split(", ");
 
-        // Example: "09 heures du soir, 07 minutes et 23 secondes" -> Custom parsing
-        // String[] parts = stringDate.split(", ");
-        int hours = Integer.parseInt(parts[0].split(" ")[0]);
-        int minutes = Integer.parseInt(parts[1].split(" ")[0]);
-        int seconds = Integer.parseInt(parts[2].split(" ")[0]);
+            // Extract hour
+            String hourPart = parts[0];
+            int hour = Integer.parseInt(hourPart.split(" ")[0]);
 
-        if (stringDate.contains("soir") || stringDate.contains("PM") || stringDate.contains("evening")) {
-            hours += 12;
+            // Extract minute
+            String minutePart = parts[1];
+            int minute = Integer.parseInt(minutePart.split(" ")[0]);
+
+            // Extract second
+            String secondPart = parts[2];
+            int second = Integer.parseInt(secondPart.split(" ")[0]);
+
+            // Adjust for "soir" (PM) or "morning" (AM)
+            if (hourPart.contains("soir") || hourPart.contains("PM") || hourPart.contains("evening")) {
+                hour += 12;
+            }
+
+            return LocalTime.of(hour, minute, second);
+        } catch (Exception e) {
+            return null;
         }
-        return LocalTime.of(hours, minutes, seconds);
     }
 
 }
