@@ -18,22 +18,21 @@ public class RegexReplace {
         String domain = parts[1];
 
         // Obfuscate username
-        if (username.contains(".") || username.contains("_") || username.contains("-")) {
-            // Hide everything after the first special character
-            int specialCharIndex = -1;
-            int dotIndex = username.indexOf('.');
-            int underscoreIndex = username.indexOf('_');
-            int hyphenIndex = username.indexOf('-');
-
-            if (dotIndex != -1) specialCharIndex = dotIndex;
-            if (underscoreIndex != -1 && (specialCharIndex == -1 || underscoreIndex < specialCharIndex))
-                specialCharIndex = underscoreIndex;
-            if (hyphenIndex != -1 && (specialCharIndex == -1 || hyphenIndex < specialCharIndex))
-                specialCharIndex = hyphenIndex;
-
-            if (specialCharIndex != -1) {
-                username = username.substring(0, specialCharIndex + 1) + "***";
+        boolean hasSpecialChar = username.contains(".") || username.contains("_") || username.contains("-");
+        if (hasSpecialChar) {
+            // Find the first special character
+            int firstSpecialCharIndex = username.length();
+            if (username.contains(".")) {
+                firstSpecialCharIndex = Math.min(firstSpecialCharIndex, username.indexOf('.'));
             }
+            if (username.contains("_")) {
+                firstSpecialCharIndex = Math.min(firstSpecialCharIndex, username.indexOf('_'));
+            }
+            if (username.contains("-")) {
+                firstSpecialCharIndex = Math.min(firstSpecialCharIndex, username.indexOf('-'));
+            }
+            // Replace everything after the first special character with ***
+            username = username.substring(0, firstSpecialCharIndex) + "***";
         } else if (username.length() > 3) {
             // Hide last 3 characters
             username = username.substring(0, username.length() - 3) + "***";
