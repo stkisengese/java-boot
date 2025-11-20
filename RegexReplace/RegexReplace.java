@@ -52,7 +52,7 @@ public class RegexReplace {
             if (topLevelDomain.equals("com") || topLevelDomain.equals("org") || topLevelDomain.equals("net")) {
                 domain = "*******." + topLevelDomain;
             } else {
-                domain = "*******.***";
+                domain = "*******.**";
             }
         }
         return username + "@" + domain;
