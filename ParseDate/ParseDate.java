@@ -2,6 +2,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Locale;
 
 public class ParseDate {
@@ -13,13 +14,26 @@ public class ParseDate {
         return LocalDateTime.parse(stringDate);
     }
 
+    
     public static LocalDate parseFullTextFormat(String stringDate) {
         if (stringDate == null || stringDate.isEmpty()) {
             return null;
         }
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE d MMMM yyyy", Locale.FRENCH);
-        return LocalDate.parse(stringDate, formatter);
+        try {
+            // Try parsing as French first
+            DateTimeFormatter frenchFormatter = DateTimeFormatter.ofPattern("EEEE d MMMM yyyy", Locale.FRENCH);
+            try {
+                return LocalDate.parse(stringDate, frenchFormatter);
+            } catch (DateTimeParseException e) {
+                // If French fails, try English
+                DateTimeFormatter englishFormatter = DateTimeFormatter.ofPattern("EEEE d MMMM yyyy", Locale.ENGLISH);
+                return LocalDate.parse(stringDate, englishFormatter);
+            }
+        } catch (DateTimeParseException e) {
+            return null;
+        }
     }
+
 
     public static LocalTime parseTimeFormat(String stringDate) {
         if (stringDate == null || stringDate.isEmpty()) {
