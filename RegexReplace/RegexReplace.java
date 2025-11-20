@@ -43,7 +43,7 @@ public class RegexReplace {
             // Format: @<second>.<top>
             String topLevelDomain = domainParts[1];
             if (topLevelDomain.equals("com") || topLevelDomain.equals("org") || topLevelDomain.equals("net")) {
-                domain = "*****." + topLevelDomain;
+                domain = "*******." + topLevelDomain;
             } else {
                 domain = "*******.***";
             }
