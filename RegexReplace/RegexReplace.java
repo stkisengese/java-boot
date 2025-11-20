@@ -20,32 +20,37 @@ public class RegexReplace {
         // Obfuscate username
         if (username.contains(".") || username.contains("_") || username.contains("-")) {
             // Hide everything after the first special character
-            int specialCharIndex = Math.min(
-                username.indexOf('.'),
-                username.indexOf('_') != -1 ? username.indexOf('_') : Integer.MAX_VALUE
-            );
-            specialCharIndex = Math.min(specialCharIndex, username.indexOf('-') != -1 ? username.indexOf('-') : Integer.MAX_VALUE);
+            int specialCharIndex = -1;
+            int dotIndex = username.indexOf('.');
+            int underscoreIndex = username.indexOf('_');
+            int hyphenIndex = username.indexOf('-');
+
+            if (dotIndex != -1) specialCharIndex = dotIndex;
+            if (underscoreIndex != -1 && (specialCharIndex == -1 || underscoreIndex < specialCharIndex))
+                specialCharIndex = underscoreIndex;
+            if (hyphenIndex != -1 && (specialCharIndex == -1 || hyphenIndex < specialCharIndex))
+                specialCharIndex = hyphenIndex;
 
             if (specialCharIndex != -1) {
-                username = username.substring(0, specialCharIndex) + ".***";
+                username = username.substring(0, specialCharIndex + 1) + "***";
             }
         } else if (username.length() > 3) {
             // Hide last 3 characters
-            username = username.substring(0, username.length() - 3) + ".***";
+            username = username.substring(0, username.length() - 3) + "***";
         }
 
         // Obfuscate domain
         String[] domainParts = domain.split("\\.");
         if (domainParts.length >= 3) {
             // Format: @<third>.<second>.<top>
-            domain = "*." + domainParts[1] + ".***";
+            domain = "*." + domainParts[domainParts.length - 2] + ".***";
         } else if (domainParts.length == 2) {
             // Format: @<second>.<top>
             String topLevelDomain = domainParts[1];
             if (topLevelDomain.equals("com") || topLevelDomain.equals("org") || topLevelDomain.equals("net")) {
                 domain = "*******." + topLevelDomain;
             } else {
-                domain = "*******.***";
+                domain = "*****.***";
             }
         }
 
