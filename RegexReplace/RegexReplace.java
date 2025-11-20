@@ -27,11 +27,11 @@ public class RegexReplace {
             specialCharIndex = Math.min(specialCharIndex, username.indexOf('-') != -1 ? username.indexOf('-') : Integer.MAX_VALUE);
 
             if (specialCharIndex != -1) {
-                username = username.substring(0, specialCharIndex) + "***";
+                username = username.substring(0, specialCharIndex) + ".***";
             }
         } else if (username.length() > 3) {
             // Hide last 3 characters
-            username = username.substring(0, username.length() - 3) + "***";
+            username = username.substring(0, username.length() - 3) + ".***";
         }
 
         // Obfuscate domain
@@ -45,7 +45,7 @@ public class RegexReplace {
             if (topLevelDomain.equals("com") || topLevelDomain.equals("org") || topLevelDomain.equals("net")) {
                 domain = "*****." + topLevelDomain;
             } else {
-                domain = "*****.***";
+                domain = "*******.***";
             }
         }
 
