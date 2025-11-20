@@ -25,8 +25,13 @@ public class ParseDate {
         if (stringDate == null || stringDate.isEmpty()) {
             return null;
         }
+
+        // Replace " and " with ", " for consistent splitting
+        String normalized = stringDate.replace(" and ", ", ");
+        String[] parts = normalized.split(", ");
+
         // Example: "09 heures du soir, 07 minutes et 23 secondes" -> Custom parsing
-        String[] parts = stringDate.split(", ");
+        // String[] parts = stringDate.split(", ");
         int hours = Integer.parseInt(parts[0].split(" ")[0]);
         int minutes = Integer.parseInt(parts[1].split(" ")[0]);
         int seconds = Integer.parseInt(parts[2].split(" ")[0]);
