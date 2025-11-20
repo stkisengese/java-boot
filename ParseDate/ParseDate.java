@@ -36,7 +36,7 @@ public class ParseDate {
         int minutes = Integer.parseInt(parts[1].split(" ")[0]);
         int seconds = Integer.parseInt(parts[2].split(" ")[0]);
 
-        if (stringDate.contains("soir") && hours < 12) {
+        if (stringDate.contains("soir")) {
             hours += 12;
         }
         return LocalTime.of(hours, minutes, seconds);
