@@ -19,8 +19,16 @@ public class RegexReplace {
 
         // Obfuscate username
         if (username.contains(".") || username.contains("_") || username.contains("-")) {
-            // Hide characters next to special characters
-            username = username.replaceAll("([._-])[A-Za-z0-9]", "$1*");
+            // Hide everything after the first special character
+            int specialCharIndex = Math.min(
+                username.indexOf('.'),
+                username.indexOf('_') != -1 ? username.indexOf('_') : Integer.MAX_VALUE
+            );
+            specialCharIndex = Math.min(specialCharIndex, username.indexOf('-') != -1 ? username.indexOf('-') : Integer.MAX_VALUE);
+
+            if (specialCharIndex != -1) {
+                username = username.substring(0, specialCharIndex) + "***";
+            }
         } else if (username.length() > 3) {
             // Hide last 3 characters
             username = username.substring(0, username.length() - 3) + "***";
