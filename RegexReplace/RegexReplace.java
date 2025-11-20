@@ -8,32 +8,27 @@ public class RegexReplace {
     }
 
     public static String obfuscateEmail(String s) {
-        if (s == null) {
-            return null;
-        }
+        if (s == null) return null;
 
         // Split the email into username and domain
         String[] parts = s.split("@", 2);
-        if (parts.length != 2) {
-            return s; // Not a valid email
-        }
+        if (parts.length != 2) return s; // Not a valid email
 
         String username = parts[0];
         String domain = parts[1];
 
         // Obfuscate username
-        if (username.contains("-") || username.contains(".") || username.contains("_")) {
-            // Hide characters next to -, ., or _
-            username = username.replaceAll("([-._].)", "*$1");
-            username = username.replaceAll("([-._])", "$1*");
+        if (username.contains(".") || username.contains("_") || username.contains("-")) {
+            // Hide characters next to special characters
+            username = username.replaceAll("([._-])[A-Za-z0-9]", "$1*");
         } else if (username.length() > 3) {
-            // Hide 3 characters from the username
+            // Hide last 3 characters
             username = username.substring(0, username.length() - 3) + "***";
         }
 
         // Obfuscate domain
-        String[] domainParts = domain.split("\\.", 3);
-        if (domainParts.length == 3) {
+        String[] domainParts = domain.split("\\.");
+        if (domainParts.length >= 3) {
             // Format: @<third>.<second>.<top>
             domain = "*." + domainParts[1] + ".***";
         } else if (domainParts.length == 2) {
