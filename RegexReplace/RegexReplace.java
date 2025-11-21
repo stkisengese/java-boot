@@ -18,27 +18,28 @@ public class RegexReplace {
         String domain = parts[1];
     
         // Obfuscate username
-        boolean hasSpecialChar = username.contains(".") || username.contains("_") || username.contains("-");
-        if (hasSpecialChar) {
-            // Find the first special character
-            int firstSpecialCharIndex = username.length();
-            if (username.contains(".")) {
-                firstSpecialCharIndex = Math.min(firstSpecialCharIndex, username.indexOf('.'));
-            }
-            if (username.contains("_")) {
-                firstSpecialCharIndex = Math.min(firstSpecialCharIndex, username.indexOf('_'));
-            }
-            if (username.contains("-")) {
-                firstSpecialCharIndex = Math.min(firstSpecialCharIndex, username.indexOf('-'));
-            }
-            // Replace everything after the first special character with ***, but keep the special character
-            username = username.substring(0, firstSpecialCharIndex + 1) + "***";
-        } else if (username.length() > 3) {
-            if (username.length() == 4) {
-                username = username.substring(0, 3) + "*";
+        if (username.matches(".*[-._].*")) {
+            int idx = Math.min(
+                Math.min(indexOfOrLength(username, '.'), indexOfOrLength(username, '_')), indexOfOrLength(username, '-')
+            );
+
+            if (idx < username.length()) {
+                username = username.substring(0, idx + 1) + "***";
             } else {
-                username = username.substring(0, username.length() - 3) + "***";
+                username = username + "***";
             }
+        } else {
+            if (username.length() > 3) {
+                String prefix = username.substring(0,3);
+                int remaining = username.length() - 3;
+                int statsToAdd = Math.min(3, remaining);
+                username = prefix + "*".repeat(statsToAdd);
+
+                if (remaining > statsToAdd) {
+                    username = username + username.substring(3 + statsToAdd);
+                }
+            }
+            // If length is 3 or less, do nothing
         }
     
         // Obfuscate domain
@@ -56,5 +57,10 @@ public class RegexReplace {
             }
         }
         return username + "@" + domain;
+    }
+
+    private static int indexOfOrLength(String s, char c) {
+        int idx = s.indexOf(c);
+        return idx == -1 ? s.length() : idx;
     }
 }
