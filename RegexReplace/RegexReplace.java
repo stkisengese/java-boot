@@ -19,14 +19,16 @@ public class RegexReplace {
     
         // Obfuscate username
         if (username.matches(".*[-._].*")) {
-            int idx = Math.min(
-                Math.min(indexOfOrLength(username, '.'), indexOfOrLength(username, '_')), indexOfOrLength(username, '-')
-            );
-
-            if (idx < username.length()) {
-                username = username.substring(0, idx + 1) + "***";
-            } else {
-                username = username + "***";
+             // find last occurrence of -, . or _
+            int lastDot = username.lastIndexOf('.');
+            int lastDash = username.lastIndexOf('-');
+            int lastUnd = username.lastIndexOf('_');
+        
+            int lastSymbol = Math.max(lastDot, Math.max(lastDash, lastUnd));
+        
+            int charsToMask = username.length() - (lastSymbol + 1);
+            if (charsToMask > 0) {
+                username = username.substring(0, lastSymbol + 1) + "*".repeat(charsToMask);
             }
         } else {
             if (username.length() > 3) {
@@ -57,10 +59,5 @@ public class RegexReplace {
             }
         }
         return username + "@" + domain;
-    }
-
-    private static int indexOfOrLength(String s, char c) {
-        int idx = s.indexOf(c);
-        return idx == -1 ? s.length() : idx;
     }
 }
