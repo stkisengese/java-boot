@@ -11,4 +11,9 @@ public class BaseRaclette implements Raclette  {
     public String getIngredients() {
         return  "Patate, fromage à raclette";
     }
+
+    @Override
+    public String toString() {
+        return  getIngredients() + " pour " + getCalories() + " calories";
+    }
 }
