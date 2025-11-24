@@ -1,6 +1,6 @@
 // package Strategy;
 
-public class ConcatStrategy extends OperationStrategy {
+public class ConcatStrategy implements OperationStrategy {
     @Override
     public int execute(int a, int b) {
         String result = String.valueOf(a) + String.valueOf(b);
